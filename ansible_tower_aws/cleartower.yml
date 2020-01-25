@@ -1,0 +1,35 @@
+---
+- name: Configure Instructor Tower server
+  remote_user: ec2-user
+  hosts: all
+  gather_facts: no
+  vars:
+    username: admin
+    pw: ansibleWS
+
+  tasks:
+
+    - name: Delete Ansible Workshop Project
+      command: awx -k --conf.host https://localhost --conf.username {{ username }} --conf.password {{ pw }} projects delete 'Ansible Workshop Project' 
+      ignore_errors: true
+
+    - name: Delete Ansible Workshop Credential
+      command: awx -k --conf.host https://localhost --conf.username {{ username }} --conf.password {{ pw }} credentials delete "Ansible Workshop Credential" 
+      ignore_errors: true
+
+    - name: Delete Ansible Workshop Inventory
+      command:  awx -k --conf.host https://localhost --conf.username {{ username }} --conf.password {{ pw }} inventory delete "Ansible Workshop Inventory"
+      ignore_errors: true
+
+    - name: Delete Ansible Workshop Job Template
+      command: awx -k --conf.host https://localhost --conf.username {{ username }} --conf.password {{ pw }} job_templates delete "Apache Basic Job Template"
+      ignore_errors: true
+
+ 
+    - name: Delete RHEL8 OSPP Workshop Project
+      command: awx -k --conf.host https://localhost --conf.username {{ username }} --conf.password {{ pw }} projects delete "Ansible RHEL8 OSPP Project" 
+      ignore_errors: true
+    
+    - name: Delete RHEL8 OSPP  Workshop Job Template
+      command: awx -k --conf.host https://localhost --conf.username {{ username }} --conf.password {{ pw }} job_templates delete "RHEL8 OSPP Job Template"
+      ignore_errors: true

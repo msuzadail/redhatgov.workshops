@@ -1,0 +1,10 @@
+---
+- name: Configure Instructor Tower server
+  remote_user: ec2-user
+  hosts: all
+  gather_facts: no
+  vars:
+    username: admin
+    pw: ansibleWS
+  roles:
+    - role: complete_exercises 
